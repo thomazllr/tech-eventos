@@ -24,3 +24,11 @@ CREATE TABLE evento (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (tipo_tecnologia_id) REFERENCES tipos_tecnologia(id)
 );
+
+/* tabela usuario */
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+);
