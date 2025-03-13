@@ -47,7 +47,7 @@ class EventoDAO {
         }
     }
 
-    public function buscarNomeTecnologiaPorId($tipoTecnologiaId) {
+    public function buscarDescricaoTecnologiaPorId($tipoTecnologiaId) {
         $query = "SELECT descricao FROM tipos_tecnologia WHERE id = ?";
         
         $stmt = $this->conn->prepare($query);
@@ -59,6 +59,27 @@ class EventoDAO {
             
             if ($result) {
                 return $result['descricao'];  
+            } else {
+                return null;  
+            }
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar nome da tecnologia: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    public function buscarNomeTecnologiaPorId($tipoTecnologiaId) {
+        $query = "SELECT nome FROM tipos_tecnologia WHERE id = ?";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $tipoTecnologiaId);
+        
+        try {
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($result) {
+                return $result['nome'];  
             } else {
                 return null;  
             }
