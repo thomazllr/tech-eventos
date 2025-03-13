@@ -19,7 +19,7 @@ class Database {
             self::$instance = new self(
                 $config['database']['host'],
                 $config['database']['port'],
-                $config['database']['username'],
+                $config['database']['user'],
                 $config['database']['password'],
                 $config['database']['dbname']
             );
