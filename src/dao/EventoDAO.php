@@ -1,7 +1,6 @@
 <?php
 
 require_once __DIR__ . '/../../db/Database.php';
-require_once __DIR__ . '/enum/TipoTecnologia.php';
 
 class EventoDAO {
     private $conn;
@@ -59,9 +58,9 @@ class EventoDAO {
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             
             if ($result) {
-                return $result['descricao'];  // Retorna o nome da tecnologia
+                return $result['descricao'];  
             } else {
-                return null;  // Se não encontrar, retorna null
+                return null;  
             }
         } catch (PDOException $e) {
             error_log("Erro ao buscar nome da tecnologia: " . $e->getMessage());

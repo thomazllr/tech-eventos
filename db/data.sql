@@ -1,5 +1,5 @@
 CREATE TABLE tipos_tecnologia (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     nome VARCHAR(50) NOT NULL UNIQUE,
     descricao VARCHAR(255)
 );
@@ -13,11 +13,11 @@ INSERT INTO tipos_tecnologia (nome, descricao) VALUES
 ('CIBERSEGURANCA', 'Eventos relacionados à segurança da informação e cibersegurança'),
 
 CREATE TABLE eventos (
-    id INT AUTO_INCREMENT PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
-    data_inicio DATETIME NOT NULL,
-    data_fim DATETIME NOT NULL,
+    data_inicio TIMESTAMP NOT NULL,
+    data_fim TIMESTAMP NOT NULL,
     local VARCHAR(100),
     tipo_tecnologia_id INT NOT NULL,
     data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
