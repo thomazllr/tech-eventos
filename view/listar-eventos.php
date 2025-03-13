@@ -2,7 +2,6 @@
 require_once '../src/controller/EventoController.php';  
 require_once '../src/dao/EventoDAO.php';  
 
-
 $controller = new EventoController();
 $eventos = [];
 $eventos = $controller->listarEventos();

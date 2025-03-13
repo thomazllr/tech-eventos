@@ -10,7 +10,7 @@ class EventoDAO {
     }
 
     public function inserir($request) {
-        $query = "INSERT INTO eventos (titulo, descricao, data_inicio, data_fim, local, tipo_tecnologia_id) 
+        $query = "INSERT INTO evento (titulo, descricao, data_inicio, data_fim, local, tipo_tecnologia_id) 
                   VALUES (?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->conn->prepare($query);
@@ -34,7 +34,7 @@ class EventoDAO {
     }
 
     public function buscarTodos() {
-        $query = "SELECT * FROM eventos ORDER BY data_inicio DESC";
+        $query = "SELECT * FROM evento ORDER BY data_inicio DESC";
         $stmt = $this->conn->prepare($query);
         
         try {

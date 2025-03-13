@@ -12,7 +12,6 @@ $controller = new EventoController();
 <body>
     <h1>Criar Novo Evento</h1>
     
-    <?php echo $mensagem; ?>
     
     <form method="post">
         <div class="form-group">

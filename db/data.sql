@@ -12,7 +12,7 @@ INSERT INTO tipos_tecnologia (nome, descricao) VALUES
 ('MOBILE', 'Eventos relacionados ao desenvolvimento de aplicativos móveis'),
 ('CIBERSEGURANCA', 'Eventos relacionados à segurança da informação e cibersegurança'),
 
-CREATE TABLE eventos (
+CREATE TABLE evento (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
@@ -20,6 +20,7 @@ CREATE TABLE eventos (
     data_fim TIMESTAMP NOT NULL,
     local VARCHAR(100),
     tipo_tecnologia_id INT NOT NULL,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (tipo_tecnologia_id) REFERENCES tipos_tecnologia(id)
 );
