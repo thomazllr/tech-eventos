@@ -31,4 +31,14 @@ CREATE TABLE usuario (
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
+    FOREIGN KEY (cargo_id) REFERENCES cargo(id)
 );
+
+CREATE TABLE cargo (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+);
+
+INSERT INTO cargo (nome) VALUES
+('ADMIN'),
+('USUARIO');
