@@ -1,8 +1,8 @@
 <?php
 
 session_start();
-require_once __DIR__ . '/../../dao/UsuarioDAO.php';
-require_once __DIR__ . '/../../../dir-config.php';
+require_once __DIR__ . '/../dao/UsuarioDAO.php';
+require_once __DIR__ . '/../../db/db-config.php';
 
 class UsuarioController {
     private $usuarioDAO;
@@ -12,7 +12,7 @@ class UsuarioController {
     }
     
     public function registrarUsuario($dados) {
-        if (empty($dados['nome']) || empty($dados['email']) || empty($dados['senha']) || empty($dados['confirmacao_senha'])) {
+        if (empty($dados['nome']) || empty($dados['email']) || empty($dados['senha']) || empty($dados['confirmacao-senha'])) {
             return ['status' => 'erro', 'mensagem' => 'Todos os campos são obrigatórios.'];
         }
 
@@ -20,7 +20,7 @@ class UsuarioController {
             return ['status' => 'erro', 'mensagem' => 'Email inválido.'];
         }
         
-        if ($dados['senha'] !== $dados['confirmacao_senha']) {
+        if ($dados['senha'] !== $dados['confirmacao-senha']) {
             return ['status' => 'erro', 'mensagem' => 'As senhas não coincidem.'];
         }
         
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'nome' => $_POST['nome'] ?? '',
             'email' => $_POST['email'] ?? '',
             'senha' => $_POST['senha'] ?? '',
-            'confirmacao_senha' => $_POST['confirmacao_senha'] ?? ''
+            'confirmacao-senha' => $_POST['confirmacao-senha'] ?? ''
         ];
         $resultado = $controller->registrarUsuario($dadosUsuario);
     } elseif (isset($_POST['acao']) && $_POST['acao'] === 'login') {
@@ -70,9 +70,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
         $resultado = $controller->loginUsuario($dadosLogin);
     }
-    
-    $_SESSION[$resultado['status']] = $resultado['mensagem'];
-    /* $redirectPage = $resultado['status'] === 'sucesso' ? 'home.php' : 'login.php'; */
-    /* header("Location: " . BASE_URL . "view/" . $redirectPage); */
+    $_SESSION['mensagem'] = $resultado['mensagem'];
+    //temporario para testes
+    $_SESSION['status'] = $resultado['status'];
+    header("Location: ../../view/cadastro-usuario.php");
     exit();
 }
