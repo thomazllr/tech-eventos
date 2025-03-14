@@ -10,7 +10,7 @@ INSERT INTO tipos_tecnologia (nome, descricao) VALUES
 ('FRONTEND', 'Eventos relacionados ao desenvolvimento frontend e UX/UI'),
 ('BACKEND', 'Eventos relacionados ao desenvolvimento backend'),
 ('MOBILE', 'Eventos relacionados ao desenvolvimento de aplicativos móveis'),
-('CIBERSEGURANCA', 'Eventos relacionados à segurança da informação e cibersegurança'),
+('CIBERSEGURANCA', 'Eventos relacionados à segurança da informação e cibersegurança')
 
 CREATE TABLE evento (
     id SERIAL PRIMARY KEY,
@@ -24,3 +24,22 @@ CREATE TABLE evento (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (tipo_tecnologia_id) REFERENCES tipos_tecnologia(id)
 );
+
+/* tabela usuario */
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL,
+    cargo_id INT,
+    FOREIGN KEY (cargo_id) REFERENCES cargo(id)
+);
+
+CREATE TABLE cargo (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+);
+
+INSERT INTO cargo (nome) VALUES
+('ADMIN'),
+('USUARIO');
