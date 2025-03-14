@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>login</title>
     <link rel="stylesheet" href="../public/css/form-usuario.css">
 </head>
 <body>
@@ -15,13 +15,8 @@
     <main class="container-cadastro">
         <div class="form-wrapper">
             <form class="form-cadastro" method="post" action="../src/controller/UsuarioController.php">
-                <input type="hidden" name="acao" value="registrar">
-                <h1 class="form-title">Cadastro</h1>
-                
-                <div class="form-group">
-                    <label for="usuario-nome">Nome</label>
-                    <input type="text" id="usuario-nome" name="nome" class="form-input" required placeholder="Digite seu nome">
-                </div>
+                <input type="hidden" name="acao" value="login">
+                <h1 class="form-title">Login</h1>
                 
                 <div class="form-group">
                     <label for="usuario-email">Email</label>
@@ -33,16 +28,12 @@
                     <input type="password" id="usuario-senha" name="senha" class="form-input" required placeholder="Digite sua senha">
                 </div>
                 
-                <div class="form-group">
-                    <label for="usuario-senha-confirmacao">Confirme a senha</label>
-                    <input type="password" id="usuario-senha-confirmacao" name="confirmacao-senha" class="form-input" required placeholder="Confirme sua senha">
-                </div>
-                
                 <div class="form-group form-actions">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <button type="submit" class="btn btn-primary">Entrar</button>
                 </div>
+
                 <div class="form-link">
-                    <p>Já tem uma conta? <a href="login-usuario.php" class="link">Faça login</a></p>
+                    <p>Não tem uma conta? <a href="cadastro-usuario.php" class="link">Cadastre-se</a></p>
                 </div>
             </form>
         </div>

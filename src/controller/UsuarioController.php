@@ -63,16 +63,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'confirmacao-senha' => $_POST['confirmacao-senha'] ?? ''
         ];
         $resultado = $controller->registrarUsuario($dadosUsuario);
+        $_SESSION['mensagem'] = $resultado['mensagem'];
+        $_SESSION['status'] = $resultado['status'];
+        if ($resultado['status'] === 'sucesso') {
+            header("Location: ../../view/login-usuario.php");
+        } else {
+            header("Location: ../../view/cadastro-usuario.php");
+        }
+        exit();
     } elseif (isset($_POST['acao']) && $_POST['acao'] === 'login') {
         $dadosLogin = [
             'email' => $_POST['email'] ?? '',
             'senha' => $_POST['senha'] ?? ''
         ];
         $resultado = $controller->loginUsuario($dadosLogin);
+        $_SESSION['mensagem'] = $resultado['mensagem'];
+        $_SESSION['status'] = $resultado['status'];
+        
+        header("Location: ../../view/login-usuario.php");
+        exit();
     }
-    $_SESSION['mensagem'] = $resultado['mensagem'];
-    //temporario para testes
-    $_SESSION['status'] = $resultado['status'];
-    header("Location: ../../view/cadastro-usuario.php");
-    exit();
 }
