@@ -10,8 +10,8 @@ class EventoDAO {
     }
 
     public function inserir($request) {
-        $query = "INSERT INTO evento (titulo, descricao, data_inicio, data_fim, local, tipo_tecnologia_id) 
-                  VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO evento (titulo, descricao, data_inicio, data_fim, local, tipo_tecnologia_id, imagem_url) 
+                  VALUES (?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $this->conn->prepare($query);
         $titulo = $request['titulo'];
@@ -20,6 +20,7 @@ class EventoDAO {
         $dataFim = $request['data_fim'];
         $local = $request['local'];
         $tipoTecnologiaId = $request['tipo_tecnologia_id'];
+        $imagemUrl = $request['imagem_url'];
         
         $stmt->bindParam(1, $titulo);
         $stmt->bindParam(2, $descricao);
@@ -27,6 +28,7 @@ class EventoDAO {
         $stmt->bindParam(4, $dataFim);
         $stmt->bindParam(5, $local);
         $stmt->bindParam(6, $tipoTecnologiaId);
+        $stmt->bindParam(7, $imagemUrl);
         if ($stmt->execute()) {
             return $this->conn->lastInsertId();
         }
@@ -106,6 +108,25 @@ class EventoDAO {
         }
     }
     
-    
+    public function buscarUrlImagemPorId($eventoId) {
+        $query = "SELECT url_imagem FROM evento WHERE id = ?";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(1, $eventoId);
+        
+        try {
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            if ($result) {
+                return $result['url_imagem'];  
+            } else {
+                return null;  
+            }
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar url da imagem: " . $e->getMessage());
+            return null;
+        }
+    }
 
 }

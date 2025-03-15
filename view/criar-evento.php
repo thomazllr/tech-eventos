@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../src/controller/EventoController.php';
 
-$controller = new EventoDAO();
+$controller = new EventoController();
 ?>
 
 <!DOCTYPE html>
@@ -46,13 +46,18 @@ $controller = new EventoDAO();
             <select name="tipo_tecnologia_id" id="tipo_tecnologia_id" required>
                 <option value="">Selecione o tipo</option>
                 <?php 
-                $categorias = $controller->buscarTodasCategorias();
+                $categorias = $controller->listarCategorias();
                 foreach ($categorias as $categoria): ?>
                     <option value="<?= $categoria['id']; ?>">
                         <?= htmlspecialchars($categoria['nome']); ?>
                     </option>
                 <?php endforeach; ?>
             </select>
+        </div>
+
+        <div class="form-group">
+            <label for="imagem_url">Url da Imagem:</label>
+            <input type="text" name="imagem_url" id="imagem_url">
         </div>
         
         <div class="form-group">

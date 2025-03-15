@@ -16,6 +16,7 @@ CREATE TABLE evento (
     id SERIAL PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
+    imagem_url TEXT,
     data_inicio TIMESTAMP NOT NULL,
     data_fim TIMESTAMP NOT NULL,
     local VARCHAR(100),
@@ -25,21 +26,22 @@ CREATE TABLE evento (
     FOREIGN KEY (tipo_tecnologia_id) REFERENCES tipos_tecnologia(id)
 );
 
-/* tabela usuario */
+CREATE TABLE cargo (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+INSERT INTO cargo (nome) VALUES
+('USUARIO'),
+('ADMIN');
+
 CREATE TABLE usuario (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) NOT NULL UNIQUE,
     senha VARCHAR(255) NOT NULL,
-    cargo_id INT,
+    cargo_id INT DEFAULT 1,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (cargo_id) REFERENCES cargo(id)
 );
-
-CREATE TABLE cargo (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-);
-
-INSERT INTO cargo (nome) VALUES
-('ADMIN'),
-('USUARIO');
