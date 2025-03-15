@@ -10,6 +10,7 @@ $controller = new EventoDAO();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Novo Evento</title>
+    <link rel="stylesheet" href="../public/css/form-eventos.css">
 </head>
 <body>
     <h1>Criar Novo Evento</h1>
