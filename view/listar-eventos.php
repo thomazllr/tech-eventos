@@ -4,100 +4,88 @@
  
  
  $controller = new EventoController();
- $eventos = [];
  $eventos = $controller->listarEventos();
- $eventoDAO = new EventoDAO();
+ $categorias = $controller->listarCategorias();
  ?>
  
  <!DOCTYPE html>
- <html>
- <head>
-     <title>Lista de Eventos</title>
-     <style>
-         body {
-             font-family: Arial, sans-serif;
-             max-width: 1000px;
-             margin: 0 auto;
-             padding: 20px;
-         }
- 
-         h1 {
-             color: #333;
-         }
- 
-         .filter {
-             margin-bottom: 20px;
-             padding: 10px;
-             background-color: #f5f5f5;
-             border-radius: 4px;
-         }
- 
-         table {
-             width: 100%;
-             border-collapse: collapse;
-             margin-bottom: 20px;
-         }
- 
-         th, td {
-             padding: 10px;
-             text-align: left;
-             border-bottom: 1px solid #ddd;
-         }
- 
-         th {
-             background-color: #f2f2f2;
-         }
- 
-         tr:hover {
-             background-color: #f5f5f5;
-         }
- 
-     </style>
- </head>
- <body>
-     <h1>Lista de Eventos de Tecnologia</h1>
- 
-     <table>
-         <thead>
-             <tr>
-                 <th>ID</th>
-                 <th>Título</th>
-                 <th>Tipo</th>
-                 <th>Descrição</th>
-                 <th>Data Início</th>
-                 <th>Data Fim</th>
-                 <th>Local</th>
-             </tr>
-         </thead>
-         <tbody>
-             <?php if (count($eventos) > 0): ?>
-                 <?php foreach ($eventos as $evento): ?>
-                 <tr>
-                     <td><?= $evento['id'] ?></td>
-                     <td><?= $evento['titulo'] ?></td>
-                     <td>
-                         <?php
-                             $nomeTecnologia = $eventoDAO->buscarNomeTecnologiaPorId($evento['tipo_tecnologia_id']);
-                             echo $nomeTecnologia ? $nomeTecnologia : 'Tecnologia não encontrada';
-                         ?>
-                     </td>
-                     <td>
-                         <?php
-                             $nomeTecnologia = $eventoDAO->buscarDescricaoTecnologiaPorId($evento['tipo_tecnologia_id']);
-                             echo $nomeTecnologia ? $nomeTecnologia : 'Tecnologia não encontrada';
-                         ?>
-                     </td>                       
-                     <td><?= date('d/m/Y H:i', strtotime($evento['data_inicio'])) ?></td>
-                     <td><?= date('d/m/Y H:i', strtotime($evento['data_fim'])) ?></td>
-                     <td><?= $evento['local'] ?></td>
-                 </tr>
-                 <?php endforeach; ?>
-             <?php else: ?>
-                 <tr>
-                     <td colspan="7" style="text-align: center;">Nenhum evento encontrado.</td>
-                 </tr>
-             <?php endif; ?>
-         </tbody>
-     </table>
- </body>
- </html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventos PQND</title>
+    <link rel="stylesheet" href="../public/css/global.css">
+    <link rel="stylesheet" href="../public/css/estilos-inicial.css">
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="logo">PQND</div>
+            <nav>
+                <ul>
+                    <li><a href="#">Eventos</a></li>
+                    <li><a href="#" class="btn-register">Registrar</a></li>
+                    <li><a href="#" class="btn-login">Login</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Barra de Pesquisa -->
+    <section class="search-bar">
+        <input type="text" placeholder="Procurar por eventos">
+        <select>
+            <option value="">Selecione a categoria</option>
+            <?php foreach ($categorias as $categoria): ?>
+                <option value= <?= $categoria['nome']; ?> >
+                    <?= $categoria['nome']; ?>        
+            </option>
+            <?php endforeach; ?>
+        </select>
+        <button class="btn-search">Buscar</button>
+    </section>
+
+    <!-- Lista de Eventos -->
+    <main>
+        <h2 class="title">EVENTOS DA PLATAFORMA</h2>
+        <div class="event-list">
+            <?php if($eventos != null && count($eventos) > 0) {
+                foreach ($eventos as $evento): ?> 
+                <div class="event">
+                    <img src="https://unsplash.com/pt-br/fotografias/asimo-robot-doing-handsign-g29arbbvPjo" alt="Imagem do evento">
+                    <div class="event-info">
+                        <h3><?= $evento['titulo']; ?></h3>
+                        <p><strong>Local:</strong> <?= $evento['local']; ?> - <?= $evento['data_inicio']; ?> - <?= $evento['data_fim']; ?></p>
+                        <p><strong>Descrição:</strong> <?= $evento['descricao']; ?></p>
+                        <p><strong>Categoria:</strong> <span class="bold"><?= $evento['categoria_nome']; ?></span></p>
+                        <button class="btn-subscribe">Se Inscrever</button>
+                    </div>
+                </div>
+            <?php endforeach; } ?>
+        </div>
+        <button class="btn-load-more">Mostrar Mais</button>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-right">
+                <h3>PQND</h3>
+                <ul>
+                    <li>Email: #############</li>
+                    <li>Telefone: #############</li>
+                    <li>Endereço: UFT - Palmas, Bloco 3</li>
+                </ul>
+            </div>
+            <div class="footer-left">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Sobre Nós</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

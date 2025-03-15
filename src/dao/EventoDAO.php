@@ -34,7 +34,10 @@ class EventoDAO {
     }
 
     public function buscarTodos() {
-        $query = "SELECT * FROM evento ORDER BY data_inicio DESC";
+        $query = "SELECT evento.*, tipos_tecnologia.nome AS categoria_nome 
+              FROM evento 
+              INNER JOIN tipos_tecnologia ON evento.tipo_tecnologia_id = tipos_tecnologia.id 
+              ORDER BY evento.data_inicio DESC";
         $stmt = $this->conn->prepare($query);
         
         try {
@@ -43,6 +46,20 @@ class EventoDAO {
             return $rows;  
         } catch (PDOException $e) {
             error_log("Erro ao buscar eventos: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function buscarTodasCategorias() {
+        $query = "SELECT * FROM tipos_tecnologia ORDER BY nome";
+        $stmt = $this->conn->prepare($query);
+        
+        try {
+            $stmt->execute();
+            $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $rows;  
+        } catch (PDOException $e) {
+            error_log("Erro ao buscar categorias: " . $e->getMessage());
             return false;
         }
     }

@@ -19,6 +19,10 @@ class EventoController {
         return $this->eventoDAO->inserir($dados);
     }
     
+    public function listarCategorias() {
+        return $this->eventoDAO->buscarTodasCategorias();
+    }
+
     public function listarEventos() {
         return $this->eventoDAO->buscarTodos();
     }
