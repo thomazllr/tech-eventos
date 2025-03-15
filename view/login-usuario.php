@@ -12,9 +12,9 @@
             <p>TechEventos</p>
         </h1>
     </header>
-    <main class="container-cadastro">
+    <main class="container">
         <div class="form-wrapper">
-            <form class="form-cadastro" method="post" action="../src/controller/UsuarioController.php">
+            <form class="form" method="post" action="../src/controller/UsuarioController.php">
                 <input type="hidden" name="acao" value="login">
                 <h1 class="form-title">Login</h1>
                 
@@ -25,7 +25,7 @@
                 
                 <div class="form-group">
                     <label for="usuario-senha">Senha</label>
-                    <input type="password" id="usuario-senha" name="senha" class="form-input" required placeholder="Digite sua senha">
+                    <input type="password" id="usuario-senha" name="senha" class="form-input" required placeholder="Digite sua senha" minlength="4" maxlength="20">
                 </div>
                 
                 <div class="form-group form-actions">
