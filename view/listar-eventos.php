@@ -18,8 +18,6 @@
     <link rel="stylesheet" href="../public/css/estilos-inicial.css">
 </head>
 <body>
-
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">PQND</div>
@@ -47,17 +45,17 @@
         <button class="btn-search">Buscar</button>
     </section>
 
-    <!-- Lista de Eventos -->
     <main>
         <h2 class="title">EVENTOS DA PLATAFORMA</h2>
         <div class="event-list">
             <?php if($eventos != null && count($eventos) > 0) {
                 foreach ($eventos as $evento): ?> 
                 <div class="event">
-                    <img src="https://unsplash.com/pt-br/fotografias/asimo-robot-doing-handsign-g29arbbvPjo" alt="Imagem do evento">
+                    <img src="<?= $evento['imagem_url']; ?>" alt="Imagem do evento">
                     <div class="event-info">
                         <h3><?= $evento['titulo']; ?></h3>
-                        <p><strong>Local:</strong> <?= $evento['local']; ?> - <?= $evento['data_inicio']; ?> - <?= $evento['data_fim']; ?></p>
+                        <p><strong>Local:</strong> 
+                        <?= htmlspecialchars($evento['local']); ?> - <?= date('d/m/Y', strtotime($evento['data_inicio'])); ?> - <?= date('d/m/Y', strtotime($evento['data_fim']));?></p>
                         <p><strong>Descrição:</strong> <?= $evento['descricao']; ?></p>
                         <p><strong>Categoria:</strong> <span class="bold"><?= $evento['categoria_nome']; ?></span></p>
                         <button class="btn-subscribe">Se Inscrever</button>
@@ -68,7 +66,6 @@
         <button class="btn-load-more">Mostrar Mais</button>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-right">
