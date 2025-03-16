@@ -12,7 +12,8 @@ class EventoController {
         if (empty($dados['titulo']) || 
             empty($dados['data_inicio']) || 
             empty($dados['data_fim']) || 
-            empty($dados['tipo_tecnologia_id'])) {
+            empty($dados['tipo_tecnologia_id']) ||
+            empty($dados['imagem_url'])) {
             return false;
         }
         
@@ -37,7 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         'data_inicio' => $_POST['data_inicio'] ?? '',
         'data_fim' => $_POST['data_fim'] ?? '',
         'local' => $_POST['local'] ?? '',
-        'tipo_tecnologia_id' => $_POST['tipo_tecnologia_id'] ?? 0
+        'tipo_tecnologia_id' => $_POST['tipo_tecnologia_id'] ?? '',
+        'imagem_url' => $_POST['imagem_url'] ?? 0
     ];
     
     $resultado = $controller->criarEvento($dadosEvento);

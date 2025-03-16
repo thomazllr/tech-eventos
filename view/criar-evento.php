@@ -7,11 +7,13 @@ $controller = new EventoController();
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Criar Novo Evento</title>
+    <link rel="stylesheet" href="../public/css/form-eventos.css">
 </head>
 <body>
     <h1>Criar Novo Evento</h1>
-    
     
     <form method="post">
         <div class="form-group">
@@ -41,7 +43,21 @@ $controller = new EventoController();
         
         <div class="form-group">
             <label for="tipo_tecnologia_id">Tipo de Tecnologia:</label>
-            <input type="number" name="tipo_tecnologia_id" id="tipo_tecnologia_id" min="1" required>
+            <select name="tipo_tecnologia_id" id="tipo_tecnologia_id" required>
+                <option value="">Selecione o tipo</option>
+                <?php 
+                $categorias = $controller->listarCategorias();
+                foreach ($categorias as $categoria): ?>
+                    <option value="<?= $categoria['id']; ?>">
+                        <?= htmlspecialchars($categoria['nome']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="imagem_url">Url da Imagem:</label>
+            <input type="text" name="imagem_url" id="imagem_url">
         </div>
         
         <div class="form-group">
