@@ -1,14 +1,16 @@
 <?php
- require_once '../src/controller/EventoController.php';  
- require_once '../src/dao/EventoDAO.php';  
- 
- 
- $controller = new EventoController();
- $eventos = $controller->listarEventos();
- $categorias = $controller->listarCategorias();
- ?>
- 
- <!DOCTYPE html>
+require_once '../src/controller/EventoController.php';  
+require_once '../src/controller/UsuarioController.php';  
+
+$eventoController = new EventoController();
+$usuarioController = new UsuarioController();
+$eventos = $eventoController->listarEventos();
+$categorias = $eventoController->listarCategorias();
+$usuarioCargo = $usuarioController->getUsuarioCargo();
+$usuarioLogado = $usuarioController->isUsuarioLogado();
+?>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -23,9 +25,18 @@
             <div class="logo">PQND</div>
             <nav>
                 <ul>
-                    <li><a href="#">Eventos</a></li>
-                    <li><a href="#" class="btn-register">Registrar</a></li>
-                    <li><a href="#" class="btn-login">Login</a></li>
+                    <?php if ($usuarioLogado): ?>
+                        <li><span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?></span></li>
+                        <li><a href="/tech-eventos/logout.php" class="btn-logout">Logout</a></li>
+                    <?php else: ?>
+                        <li><a href="/tech-eventos/view/cadastro-usuario.php" class="btn-register-user">Registrar</a></li>
+                        <li><a href="/tech-eventos/view/login-usuario.php" class="btn-login">Login</a></li>
+                    <?php endif; ?>
+
+                    <?php if ($usuarioCargo === 'ADMIN'): ?>
+                        <!-- <li><a href="/tech-eventos/view/admin/dash-board.php" class="btn-admin">Dashboard Admin</a></li> -->
+                        <li><a href="/tech-eventos/view/criar-evento.php" class="btn-register-event">Cadastrar Eventos</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>

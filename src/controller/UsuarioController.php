@@ -145,7 +145,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['mensagem'] = $resultado['mensagem'];
         $_SESSION['status'] = $resultado['status'];
         
-        header("Location: ../../view/login-usuario.php");
+        if ($resultado['status'] === 'sucesso') {
+            // Redireciona para dashboard de admin se for admin
+            //if ($controller->isAdmin()) {
+            //    header("Location: ../../view/admin/dash-board.php");
+            //} else {
+            //    header("Location: ../../view/listar-eventos.php");
+            //}
+            header("Location: ../../view/listar-eventos.php");
+        } else {
+            header("Location: ../../view/login-usuario.php");
+        }
         exit();
     }
 }
