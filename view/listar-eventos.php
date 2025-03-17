@@ -67,9 +67,8 @@ $usuarioLogado = $usuarioController->isUsuarioLogado();
                         <h3><?= $evento['titulo']; ?></h3>
                         <p><strong>Local:</strong> 
                         <?= htmlspecialchars($evento['local']); ?> - <?= date('d/m/Y', strtotime($evento['data_inicio'])); ?> - <?= date('d/m/Y', strtotime($evento['data_fim']));?></p>
-                        <p><strong>Descrição:</strong> <?= $evento['descricao']; ?></p>
                         <p><strong>Categoria:</strong> <span class="bold"><?= $evento['categoria_nome']; ?></span></p>
-                        <button class="btn-subscribe">Se Inscrever</button>
+                        <button class="btn-subscribe">Saiba mais</button>
                     </div>
                 </div>
             <?php endforeach; } ?>
