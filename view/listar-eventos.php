@@ -4,10 +4,23 @@ require_once '../src/controller/UsuarioController.php';
 
 $eventoController = new EventoController();
 $usuarioController = new UsuarioController();
-$eventos = $eventoController->listarEventos();
 $categorias = $eventoController->listarCategorias();
 $usuarioCargo = $usuarioController->getUsuarioCargo();
 $usuarioLogado = $usuarioController->isUsuarioLogado();
+
+
+// Filtro de eventos, vazio por padrão, preenchido com os valores do GET de acordo com o que o usuário preencher
+$filtro = [];
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (!empty($_GET['categoria_nome'])) {
+        $filtro['categoria_nome'] = $_GET['categoria_nome'];
+    }
+    if (!empty($_GET['titulo'])) {
+        $filtro['titulo'] = $_GET['titulo'];
+    }
+}
+
+$eventos = $eventoController->listarEventosFiltrados($filtro);
 ?>
 
 <!DOCTYPE html>
@@ -44,16 +57,18 @@ $usuarioLogado = $usuarioController->isUsuarioLogado();
 
     <!-- Barra de Pesquisa -->
     <section class="search-bar">
-        <input type="text" placeholder="Procurar por eventos">
-        <select>
-            <option value="">Selecione a categoria</option>
-            <?php foreach ($categorias as $categoria): ?>
-                <option value= <?= $categoria['nome']; ?> >
-                    <?= $categoria['nome']; ?>        
-            </option>
-            <?php endforeach; ?>
-        </select>
-        <button class="btn-search">Buscar</button>
+        <form method="get">
+            <input type="text" name="titulo" placeholder="Procurar por eventos">
+            <select name="categoria_nome">
+                <option value="">Selecione a categoria</option>
+                <?php foreach ($categorias as $categoria): ?>
+                    <option value="<?= $categoria['nome']; ?>">
+                        <?= $categoria['nome']; ?>        
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" class="btn-search">Buscar</button>
+        </form>
     </section>
 
     <main>

@@ -27,6 +27,22 @@ class EventoController {
     public function listarEventos() {
         return $this->eventoDAO->buscarTodos();
     }
+
+    //função para listar eventos filtrados por nome e categoria
+    public function listarEventosFiltrados($filtro = []) {
+        $eventos = $this->listarEventos();
+        if (!empty($filtro)) {
+            $eventos = array_filter($eventos, function($evento) use ($filtro) {
+                foreach ($filtro as $key => $value) {
+                    if (stripos($evento[$key], $value) === false) {
+                        return false;
+                    }
+                }
+                return true;
+            });
+        }
+        return $eventos;
+    }
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
