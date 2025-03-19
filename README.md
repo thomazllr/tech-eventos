@@ -6,6 +6,13 @@
 **Semestre:** 1º Semestre de 2025  
 **Professor:** Edeilson Milhomem 
 
+## 👥 Integrantes do Time
+- Guilherme Thomaz Brito
+- Ítalo Henrik Batista Reis
+- Jhennifer da Silva Azevedo
+- Luiz Felipe da Paz Leal
+- Marcos Freire de Melo
+
 ## 📌 Descrição Geral do Projeto
 Este projeto consiste em uma plataforma web para exibição e gerenciamento de eventos, com foco em eventos acadêmicos e tecnológicos. O site permite que usuários naveguem por eventos categorizados, façam login e que um administrador cadastre novos eventos.
 
@@ -16,14 +23,7 @@ Facilitar a divulgação de eventos, proporcionando uma experiência intuitiva p
 - Exibição de eventos organizados por categoria
 - Barra de pesquisa para encontrar eventos específicos
 - Sistema de login e cadastro de usuários
-- Painel administrativo para criação e edição de eventos
-
-## 👥 Integrantes do Time
-- Guilherme Thomaz Brito
-- Ítalo Henrik Batista Reis
-- Jhennifer da Silva Azevedo
-- Luiz Felipe da Paz Leal
-- Marcos Freire de Melo
+- Painel administrativo para criação de eventos
 
 ## 🛠️ Configuração e Execução
 
