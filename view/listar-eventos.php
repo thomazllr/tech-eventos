@@ -1,14 +1,29 @@
 <?php
- require_once '../src/controller/EventoController.php';  
- require_once '../src/dao/EventoDAO.php';  
- 
- 
- $controller = new EventoController();
- $eventos = $controller->listarEventos();
- $categorias = $controller->listarCategorias();
- ?>
- 
- <!DOCTYPE html>
+require_once '../src/controller/EventoController.php';  
+require_once '../src/controller/UsuarioController.php';  
+
+$eventoController = new EventoController();
+$usuarioController = new UsuarioController();
+$categorias = $eventoController->listarCategorias();
+$usuarioCargo = $usuarioController->getUsuarioCargo();
+$usuarioLogado = $usuarioController->isUsuarioLogado();
+
+
+// Filtro de eventos, vazio por padrão, preenchido com os valores do GET de acordo com o que o usuário preencher
+$filtro = [];
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    if (!empty($_GET['categoria_nome'])) {
+        $filtro['categoria_nome'] = $_GET['categoria_nome'];
+    }
+    if (!empty($_GET['titulo'])) {
+        $filtro['titulo'] = $_GET['titulo'];
+    }
+}
+
+$eventos = $eventoController->listarEventosFiltrados($filtro);
+?>
+
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
@@ -18,16 +33,23 @@
     <link rel="stylesheet" href="../public/css/estilos-inicial.css">
 </head>
 <body>
-
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="logo">PQND</div>
             <nav>
                 <ul>
-                    <li><a href="#">Eventos</a></li>
-                    <li><a href="#" class="btn-register">Registrar</a></li>
-                    <li><a href="#" class="btn-login">Login</a></li>
+                    <?php if ($usuarioLogado): ?>
+                        <li><span class="user-name">Olá, <?php echo $_SESSION['usuario_nome']; ?></span></li>
+                        <li><a href="/tech-eventos/logout.php" class="btn-logout">Logout</a></li>
+                    <?php else: ?>
+                        <li><a href="/tech-eventos/view/cadastro-usuario.php" class="btn-register-user">Registrar</a></li>
+                        <li><a href="/tech-eventos/view/login-usuario.php" class="btn-login">Login</a></li>
+                    <?php endif; ?>
+
+                    <?php if ($usuarioCargo === 'ADMIN'): ?>
+                        <!-- <li><a href="/tech-eventos/view/admin/dash-board.php" class="btn-admin">Dashboard Admin</a></li> -->
+                        <li><a href="/tech-eventos/view/criar-evento.php" class="btn-register-event">Cadastrar Eventos</a></li>
+                    <?php endif; ?>
                 </ul>
             </nav>
         </div>
@@ -35,32 +57,33 @@
 
     <!-- Barra de Pesquisa -->
     <section class="search-bar">
-        <input type="text" placeholder="Procurar por eventos">
-        <select>
-            <option value="">Selecione a categoria</option>
-            <?php foreach ($categorias as $categoria): ?>
-                <option value= <?= $categoria['nome']; ?> >
-                    <?= $categoria['nome']; ?>        
-            </option>
-            <?php endforeach; ?>
-        </select>
-        <button class="btn-search">Buscar</button>
+        <form method="get">
+            <input type="text" name="titulo" placeholder="Procurar por eventos">
+            <select name="categoria_nome">
+                <option value="">Selecione a categoria</option>
+                <?php foreach ($categorias as $categoria): ?>
+                    <option value="<?= $categoria['nome']; ?>">
+                        <?= $categoria['nome']; ?>        
+                    </option>
+                <?php endforeach; ?>
+            </select>
+            <button type="submit" class="btn-search">Buscar</button>
+        </form>
     </section>
 
-    <!-- Lista de Eventos -->
     <main>
         <h2 class="title">EVENTOS DA PLATAFORMA</h2>
         <div class="event-list">
             <?php if($eventos != null && count($eventos) > 0) {
                 foreach ($eventos as $evento): ?> 
                 <div class="event">
-                    <img src="https://unsplash.com/pt-br/fotografias/asimo-robot-doing-handsign-g29arbbvPjo" alt="Imagem do evento">
+                    <img src="<?= $evento['imagem_url']; ?>" alt="Imagem do evento">
                     <div class="event-info">
                         <h3><?= $evento['titulo']; ?></h3>
-                        <p><strong>Local:</strong> <?= $evento['local']; ?> - <?= $evento['data_inicio']; ?> - <?= $evento['data_fim']; ?></p>
-                        <p><strong>Descrição:</strong> <?= $evento['descricao']; ?></p>
+                        <p><strong>Local:</strong> 
+                        <?= htmlspecialchars($evento['local']); ?> - <?= date('d/m/Y', strtotime($evento['data_inicio'])); ?> - <?= date('d/m/Y', strtotime($evento['data_fim']));?></p>
                         <p><strong>Categoria:</strong> <span class="bold"><?= $evento['categoria_nome']; ?></span></p>
-                        <button class="btn-subscribe">Se Inscrever</button>
+                        <button class="btn-subscribe">Saiba mais</button>
                     </div>
                 </div>
             <?php endforeach; } ?>
@@ -68,7 +91,6 @@
         <button class="btn-load-more">Mostrar Mais</button>
     </main>
 
-    <!-- Footer -->
     <footer>
         <div class="container">
             <div class="footer-right">

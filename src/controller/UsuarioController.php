@@ -28,6 +28,10 @@ class UsuarioController {
             return ['status' => 'erro', 'mensagem' => 'As senhas não coincidem.'];
         }
            
+        if (!isset($dados['cargo_id']) || empty($dados['cargo_id'])) {
+            $dados['cargo_id'] = 1;
+        }
+           
         $idUsuario = $this->usuarioDAO->inserir($dados);
         if ($idUsuario) {
             return ['status' => 'sucesso', 'mensagem' => 'Usuário cadastrado com sucesso.', 'id' => $idUsuario];
@@ -49,9 +53,66 @@ class UsuarioController {
         if ($usuario && password_verify($dados['senha'], $usuario['senha'])) {
             $_SESSION['usuario_id'] = $usuario['id'];
             $_SESSION['usuario_nome'] = $usuario['nome'];
+            $_SESSION['usuario_cargo'] = $usuario['cargo_nome'];
+            $_SESSION['usuario_cargo_id'] = $usuario['cargo_id'];
+            $_SESSION['usuario_logado'] = true;
+            $_SESSION['login_time'] = time();
+            $_SESSION['ultimo_acesso'] = time();
             return ['status' => 'sucesso', 'mensagem' => 'Login realizado com sucesso.'];
         }
         return ['status' => 'erro', 'mensagem' => 'Credenciais inválidas.'];
+    }
+
+    public function isUsuarioLogado() {
+        return isset($_SESSION['usuario_logado']) && $_SESSION['usuario_logado'] === true;
+    }
+
+    public function getUsuarioCargo() {
+        if ($this->isUsuarioLogado()) {
+            return $_SESSION['usuario_cargo'] ?? null;
+        }
+        return null;
+    }
+    
+    public function isAdmin() {
+        return $this->isUsuarioLogado() && $this->getUsuarioCargo() === 'ADMIN';
+    }
+    
+    public function logout() {
+        $_SESSION = array();
+        session_destroy();
+        return ['status' => 'sucesso', 'mensagem' => 'Logout realizado com sucesso.'];
+    }
+    
+    public function verificarSessao() {
+        if (!$this->isUsuarioLogado()) {
+            return false;
+        }
+        
+        $tempoInatividade = 30 * 60; // 30 minutos em segundos
+        if (isset($_SESSION['ultimo_acesso']) && (time() - $_SESSION['ultimo_acesso'] > $tempoInatividade)) {
+            $this->logout();
+            return false;
+        }
+        
+        $_SESSION['ultimo_acesso'] = time();
+        return true;
+    }
+    
+    public function verificarPermissaoAdmin() {
+        if (!$this->verificarSessao()) {
+            return false;
+        }
+        
+        if (!$this->isAdmin()) {
+            return false;
+        }
+        
+        return true;
+    }
+    
+    public function getCargos() {
+        return $this->usuarioDAO->buscarCargos();
     }
 }
 
@@ -63,7 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'nome' => $_POST['nome'] ?? '',
             'email' => $_POST['email'] ?? '',
             'senha' => $_POST['senha'] ?? '',
-            'confirmacao-senha' => $_POST['confirmacao-senha'] ?? ''
+            'confirmacao-senha' => $_POST['confirmacao-senha'] ?? '',
+            'cargo_id' => $_POST['cargo_id'] ?? 1 // 1 = USUARIO por padrão
         ];
         $resultado = $controller->registrarUsuario($dadosUsuario);
         $_SESSION['mensagem'] = $resultado['mensagem'];
@@ -83,7 +145,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['mensagem'] = $resultado['mensagem'];
         $_SESSION['status'] = $resultado['status'];
         
-        header("Location: ../../view/login-usuario.php");
+        if ($resultado['status'] === 'sucesso') {
+            // Redireciona para dashboard de admin se for admin
+            //if ($controller->isAdmin()) {
+            //    header("Location: ../../view/admin/dash-board.php");
+            //} else {
+            //    header("Location: ../../view/listar-eventos.php");
+            //}
+            header("Location: ../../view/listar-eventos.php");
+        } else {
+            header("Location: ../../view/login-usuario.php");
+        }
         exit();
     }
 }
