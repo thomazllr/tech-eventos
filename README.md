@@ -36,8 +36,8 @@ Certifique-se de ter instalado:
 
 ### 🔹 Clonando o repositório
 ```sh
- git clone https://github.com/seu-usuario/nome-do-repositorio.git
- cd nome-do-repositorio
+ git clone https://github.com/thomazllr/tech-eventos.git
+ cd tech-eventos
 ```
 
 ### 🔹 Configuração do Apache para PostgreSQL no XAMPP
@@ -55,7 +55,7 @@ Certifique-se de ter instalado:
    ```sh
    docker run --name postgres-container -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=postgres -p 5432:5432 -d postgres
    ```
-3. Isso criará um banco de dados chamado **eventos** e rodará na porta `5432`.
+3. Isso criará um banco de dados chamado **postgres** e rodará na porta `5432`.
 
 ### 🔹 Configuração do Banco de Dados no DBeaver
 1. Baixe e instale o **DBeaver**: [https://dbeaver.io/download/](https://dbeaver.io/download/)
