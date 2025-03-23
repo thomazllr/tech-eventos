@@ -1,6 +1,6 @@
 <?php
-require_once '../src/controller/EventoController.php';  
-require_once '../src/controller/UsuarioController.php';  
+require_once '../src/controller/EventoController.php';
+require_once '../src/controller/UsuarioController.php';
 
 $eventoController = new EventoController();
 $usuarioController = new UsuarioController();
@@ -9,7 +9,6 @@ $usuarioCargo = $usuarioController->getUsuarioCargo();
 $usuarioLogado = $usuarioController->isUsuarioLogado();
 
 
-// Filtro de eventos, vazio por padrão, preenchido com os valores do GET de acordo com o que o usuário preencher
 $filtro = [];
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (!empty($_GET['categoria_nome'])) {
@@ -25,17 +24,19 @@ $eventos = $eventoController->listarEventosFiltrados($filtro);
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Eventos PQND</title>
+    <title>Eventos Tech</title>
     <link rel="stylesheet" href="../public/css/global.css">
     <link rel="stylesheet" href="../public/css/estilos-inicial.css">
 </head>
+
 <body>
     <header>
         <div class="container">
-            <div class="logo">PQND</div>
+            <div class="logo">Tech</div>
             <nav>
                 <ul>
                     <?php if ($usuarioLogado): ?>
@@ -47,7 +48,6 @@ $eventos = $eventoController->listarEventosFiltrados($filtro);
                     <?php endif; ?>
 
                     <?php if ($usuarioCargo === 'ADMIN'): ?>
-                        <!-- <li><a href="/tech-eventos/view/admin/dash-board.php" class="btn-admin">Dashboard Admin</a></li> -->
                         <li><a href="/tech-eventos/view/criar-evento.php" class="btn-register-event">Cadastrar Eventos</a></li>
                     <?php endif; ?>
                 </ul>
@@ -63,7 +63,7 @@ $eventos = $eventoController->listarEventosFiltrados($filtro);
                 <option value="">Selecione a categoria</option>
                 <?php foreach ($categorias as $categoria): ?>
                     <option value="<?= $categoria['nome']; ?>">
-                        <?= $categoria['nome']; ?>        
+                        <?= $categoria['nome']; ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -74,40 +74,58 @@ $eventos = $eventoController->listarEventosFiltrados($filtro);
     <main>
         <h2 class="title">EVENTOS DA PLATAFORMA</h2>
         <div class="event-list">
-            <?php if($eventos != null && count($eventos) > 0) {
-                foreach ($eventos as $evento): ?> 
-                <div class="event">
-                    <img src="<?= $evento['imagem_url']; ?>" alt="Imagem do evento">
-                    <div class="event-info">
-                        <h3><?= $evento['titulo']; ?></h3>
-                        <p><strong>Local:</strong> 
-                        <?= htmlspecialchars($evento['local']); ?> - <?= date('d/m/Y', strtotime($evento['data_inicio'])); ?> - <?= date('d/m/Y', strtotime($evento['data_fim']));?></p>
-                        <p><strong>Categoria:</strong> <span class="bold"><?= $evento['categoria_nome']; ?></span></p>
-                        <button class="btn-subscribe">Saiba mais</button>
+            <?php if ($eventos != null && count($eventos) > 0) {
+                foreach ($eventos as $evento): ?>
+                    <div class="event">
+                        <img src="<?= $evento['imagem_url']; ?>" alt="Imagem do evento">
+                        <div class="event-info">
+                            <h3><?= $evento['titulo']; ?></h3>
+                            <p><strong>Local:</strong>
+                                <?= htmlspecialchars($evento['local']); ?> - <?= date('d/m/Y', strtotime($evento['data_inicio'])); ?> - <?= date('d/m/Y', strtotime($evento['data_fim'])); ?></p>
+                            <p><strong>Categoria:</strong> <span class="bold"><?= $evento['categoria_nome']; ?></span></p>
+                            <button class="btn-subscribe" onclick="openModal('modal-<?= $evento['id']; ?>')">Saiba mais</button>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; } ?>
+
+                    <!-- Modal para este evento -->
+                    <div id="modal-<?= $evento['id']; ?>" class="modal">
+                        <div class="modal-content">
+                            <span class="close-modal" onclick="closeModal('modal-<?= $evento['id']; ?>')">&times;</span>
+                            <div class="modal-header">
+                                <h2><?= $evento['titulo']; ?></h2>
+                            </div>
+                            <div class="modal-body">
+                                <img src="<?= $evento['imagem_url']; ?>" alt="Imagem do evento">
+                                <div class="modal-info">
+                                    <p><strong>Local:</strong> <?= htmlspecialchars($evento['local']); ?></p>
+                                    <p><strong>Data:</strong> <?= date('d/m/Y', strtotime($evento['data_inicio'])); ?> até <?= date('d/m/Y', strtotime($evento['data_fim'])); ?></p>
+                                    <p><strong>Categoria:</strong> <?= $evento['categoria_nome']; ?></p>
+                                    <p><strong>Descrição:</strong> <?= htmlspecialchars($evento['descricao']); ?></p>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn-subscribe">Inscrever-se</button>
+                            </div>
+                        </div>
+                    </div>
+
+            <?php endforeach;
+            } ?>
         </div>
-        <button class="btn-load-more">Mostrar Mais</button>
     </main>
 
     <footer>
         <div class="container">
             <div class="footer-right">
-                <h3>PQND</h3>
                 <ul>
-                    <li>Email: #############</li>
-                    <li>Telefone: #############</li>
+                    <li>Email: uft@email</li>
+                    <li>Telefone: (62) 3150-0852</li>
                     <li>Endereço: UFT - Palmas, Bloco 3</li>
-                </ul>
-            </div>
-            <div class="footer-left">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Sobre Nós</a></li>
                 </ul>
             </div>
         </div>
     </footer>
+    <script src="../public/js/modal.js"></script>
 </body>
+
 </html>
