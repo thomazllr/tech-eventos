@@ -67,3 +67,12 @@ CREATE TABLE usuario (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (cargo_id) REFERENCES cargo(id)
 );
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto;
+
+INSERT INTO usuario (nome, email, senha, cargo_id)  
+VALUES ('User', 'user@email.com', crypt('1234', gen_salt('bf')), 1);
+
+-- Inserir usuário admin com senha hash
+INSERT INTO usuario (nome, email, senha, cargo_id)  
+VALUES ('Admin', 'admin@email.com', crypt('1234', gen_salt('bf')), 2);

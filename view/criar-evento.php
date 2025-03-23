@@ -17,6 +17,7 @@ $controller = new EventoController();
 <body>
     <h1>Criar Novo Evento</h1>
 
+
     <form method="post">
         <div class="form-group">
             <label for="titulo">Título:</label>
@@ -66,6 +67,13 @@ $controller = new EventoController();
             <button type="submit">Criar Evento</button>
         </div>
     </form>
+
+
+    <?php if (isset($mensagem)): ?>
+        <div class="mensagem-container">
+            <?php echo $mensagem; ?>
+        </div>
+    <?php endif; ?>
 
     <div class="links">
         <a href="listar-eventos.php">Voltar para Lista de Eventos</a>
