@@ -1,146 +1,167 @@
-@import url('global.css');
+@import url("global.css");
 
 * {
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 body {
-    background-color: #f5f7fa;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  background-color: #f5f7fa;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .header {
-    position: absolute;
-    top: -30px;
-    left: 68px;
-    font-size: 24px;
-    font-weight: bold;
-    color: #2d3748;
+  position: absolute;
+  top: -30px;
+  left: 68px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #2d3748;
 }
 
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
 .form-wrapper {
-    width: 100%;
-    max-width: 450px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.174);
-    padding: 30px;
-    order: 1; /* formulário primeiro */ 
+  width: 100%;
+  max-width: 450px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.174);
+  padding: 30px;
+  order: 1; /* formulário primeiro */
 }
 
 .form-title {
-    text-align: center;
-    color: #2d3748;
-    margin-bottom: 30px;
-    font-size: 32px;
-    font-weight: 600;
+  text-align: center;
+  color: #2d3748;
+  margin-bottom: 30px;
+  font-size: 32px;
+  font-weight: 600;
 }
 
 .form-group {
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #4a5568;
-    font-weight: bold;
-    font-size: 16px;
+  display: block;
+  margin-bottom: 8px;
+  color: #4a5568;
+  font-weight: bold;
+  font-size: 16px;
 }
 
 .form-input {
-    width: 100%;
-    padding: 12px 15px;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 16px;
-    background-color: #f9fafb;
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 16px;
+  background-color: #f9fafb;
 }
 
 .form-input:focus {
-    outline: none;
-    border-color: #4299e1;
+  outline: none;
+  border-color: #4299e1;
 }
 
 .form-input::placeholder {
-    color: #a0aec0;
+  color: #a0aec0;
 }
 
 .form-actions {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .btn {
-    display: inline-block;
-    font-weight: bold;
-    text-align: center;
-    white-space: nowrap;
-    border: 1px solid transparent;
-    padding: 11px 25px; 
-    font-size: 1rem;
-    line-height: 1.5;
-    border-radius: 6px;
-    cursor: pointer;
+  display: inline-block;
+  font-weight: bold;
+  text-align: center;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  padding: 11px 25px;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 6px;
+  cursor: pointer;
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #4299e1;
-    border-color: #4299e1;
-    width: 100%;
+  color: #fff;
+  background-color: #4299e1;
+  border-color: #4299e1;
+  width: 100%;
 }
 
 .alert {
-    padding: 10px;
-    margin-top: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    font-weight: bold;
-    text-align: center;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .alert-success {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
 }
 
 .alert-danger {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 .container > .alert {
-    order: 2; /* alert abaixo do form */
+  order: 2; /* alert abaixo do form */
 }
 
 .form-link {
-    text-align: center;
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #e2e8f0;
-    font-size: 15px;
-    color: #4a5568;
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #e2e8f0;
+  font-size: 15px;
+  color: #4a5568;
 }
 
 .link {
-    text-decoration: none;
-    color: #5941A9;
+  text-decoration: none;
+  color: #5941a9;
+}
+
+.link {
+  padding-top: 40px;
 }
 
 .link:hover {
-    text-decoration: underline;
+  text-decoration: underline;
+}
+
+.text-logo:link {
+  display: block;
+  padding-top: 20px;
+
+  text-decoration: none;
+  color: black;
+}
+
+.text-logo:visited {
+  text-decoration: none;
+  color: black;
+}
+
+.text-logo:hover {
+  text-decoration: underline;
 }

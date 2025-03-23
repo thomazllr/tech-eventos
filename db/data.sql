@@ -26,6 +26,28 @@ CREATE TABLE evento (
     FOREIGN KEY (tipo_tecnologia_id) REFERENCES tipos_tecnologia(id)
 );
 
+INSERT INTO evento (titulo, descricao, imagem_url, data_inicio, data_fim, local, tipo_tecnologia_id, created_at, updated_at) VALUES
+('Summit IA 2025: Inovação e Inteligência Artificial no Futuro Digital', 
+ 'O Summit IA 2025 é o evento definitivo para profissionais, pesquisadores e entusiastas da Inteligência Artificial. Reunindo especialistas de renome, painéis interativos e demonstrações inovadoras, exploraremos como a IA está transformando negócios, ciência e sociedade.',
+ 'https://images.unsplash.com/photo-1535378917042-10a22c95931a?q=80&w=2048&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+ '2025-03-25 14:00:00',
+ '2025-03-27 18:00:00',
+ 'UFT - Bloco III',
+ 1, 
+ CURRENT_TIMESTAMP, 
+ CURRENT_TIMESTAMP
+),
+('CyberSec 2025: Protegendo o Futuro Digital', 
+ 'O CyberSec 2025 é o principal evento para profissionais de cibersegurança, reunindo especialistas, empresas e entusiastas para discutir as ameaças digitais mais avançadas e as melhores estratégias de defesa.',
+ 'https://plus.unsplash.com/premium_photo-1663091633166-20ef12aa7b4e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+ '2025-04-27 15:00:00',
+ '2025-04-30 19:00:00',
+ 'UFT - Bloco III',
+ 6,
+ CURRENT_TIMESTAMP,
+ CURRENT_TIMESTAMP
+);
+
 CREATE TABLE cargo (
     id SERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL
