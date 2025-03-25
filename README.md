@@ -13,6 +13,9 @@
 - Luiz Felipe da Paz Leal
 - Marcos Freire de Melo
 
+## 🎥 Vídeo de Apresentação
+[Link do vídeo de apresentação do projeto](https://www.youtube.com/watch?v=8jxXbpuKsMM)
+
 ## 📌 Descrição Geral do Projeto
 Este projeto consiste em uma plataforma web para exibição e gerenciamento de eventos, com foco em eventos acadêmicos e tecnológicos. O site permite que usuários naveguem por eventos categorizados, façam login e que um administrador cadastre novos eventos.
 
@@ -66,7 +69,7 @@ Certifique-se de ter instalado:
    - **Usuário:** `postgres`  
    - **Senha:** `postgres`  
    - **Database:** `postgres`  
-3. Conecte-se e execute os scripts SQL necessários para criar as tabelas do projeto.
+3. Conecte-se e execute os scripts SQL necessários para criar as tabelas do projeto, localizados na pasta `db/data.sql` do repositório.
 
 ### 🔹 Executando o Projeto
 1. Coloque o arquivo do projeto `tech-eventos` dentro do diretório `htdocs` do XAMPP, localizado em `C:\xampp\htdocs`.
